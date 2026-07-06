@@ -266,12 +266,36 @@ function DatesTab() {
     load();
   }
 
+  // 순서 바꾸기: 위(-1) 또는 아래(+1)로 이동
+  async function move(index, dir) {
+    const target = index + dir;
+    if (target < 0 || target >= items.length) return;
+    const reordered = [...items];
+    [reordered[index], reordered[target]] = [reordered[target], reordered[index]];
+    // 새 순서대로 번호(sort_order)를 다시 부여
+    await Promise.all(
+      reordered.map((it, i) =>
+        fetch('/api/admin/dates', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: it.id, sort_order: i + 1 }),
+        })
+      )
+    );
+    load();
+  }
+
   return (
     <div className="card">
       <div className="section-title">📅 상담 가능 날짜 관리</div>
+      <p className="hint">↑ ↓ 버튼으로 손님에게 보이는 순서를 바꿀 수 있어요.</p>
       {items.length === 0 && <p className="hint">등록된 날짜가 없어요.</p>}
-      {items.map((d) => (
+      {items.map((d, index) => (
         <div key={d.id} className="row-item">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <button className="tag-move" onClick={() => move(index, -1)} disabled={index === 0}>↑</button>
+            <button className="tag-move" onClick={() => move(index, 1)} disabled={index === items.length - 1}>↓</button>
+          </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 700 }}>
               {d.date_label} {d.weekday ? `(${d.weekday})` : ''}{' '}
