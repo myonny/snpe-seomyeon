@@ -338,7 +338,7 @@ export default function HomePage() {
                     <input
                       value={wlForm.desired_time}
                       onChange={(e) => setWlForm({ ...wlForm, desired_time: e.target.value })}
-                      placeholder="예) 평일 오전, 주말 오후 등"
+                      placeholder="예) 평일 6~9시, 주말 10~12시, 월수 시간은 상관없음"
                     />
                   </div>
                   <div className="field">
