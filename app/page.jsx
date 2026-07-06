@@ -72,13 +72,13 @@ export default function HomePage() {
     <main className="wrap">
       {/* 1) 상단 헤더 */}
       <div style={{ marginBottom: 22 }}>
-        <span className="badge">SNPE 서면점은 한 분 한 분에게 집중하기 위해, 1:1 프라이빗 레슨만 진행합니다.</span>
+        <span className="badge">SNPE 서면점</span>
         <h1 className="title">1:1 개인레슨 상담예약창</h1>
       </div>
 
       {/* 2) 공지 배너 */}
       <div className="notice">
-        요즘 개인레슨 수요가 많아져서, 현재는 1:1 맞춤 프라이빗 레슨만 진행하고 있어요 💕
+        SNPE 서면점은 한 분 한 분에게 집중하기 위해, 1:1 프라이빗 레슨만 진행합니다 💕
       </div>
 
       {loading && <div className="card">불러오는 중… ⏳</div>}
