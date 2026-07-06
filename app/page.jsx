@@ -118,7 +118,7 @@ export default function HomePage() {
 
           {/* 4) 수강료 */}
           <section className="card">
-            <div className="section-title">💰 수강료</div>
+            <div className="section-title">🌸 수강료</div>
             <button className="btn ghost" onClick={() => setShowPrice((v) => !v)}>
               {showPrice ? '수강료 접기' : '수강료 보기'}
             </button>
@@ -177,8 +177,7 @@ export default function HomePage() {
 
           {/* 하단 정보 */}
           <div className="footer">
-            SNPE 서면점 · 부산 서면<br />
-            예약비 10,000원 (상담 후 전액 환불) · 수업 1회 50분
+            SNPE 부산서면점
           </div>
         </>
       )}
