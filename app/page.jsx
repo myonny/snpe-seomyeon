@@ -6,6 +6,7 @@ export default function HomePage() {
   const [data, setData] = useState(null);      // { schedules, dates, bank }
   const [loading, setLoading] = useState(true);
   const [showPrice, setShowPrice] = useState(false);
+  const [zoomImage, setZoomImage] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(null); // 신청하려는 날짜
   const [form, setForm] = useState({ name: '', phone: '', discomfort: '' });
@@ -126,6 +127,8 @@ export default function HomePage() {
                 className="price-img"
                 src="/price.png"
                 alt="수강료 안내"
+                style={{ cursor: 'zoom-in' }}
+                onClick={() => setZoomImage(true)}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   const n = document.createElement('p');
@@ -251,6 +254,20 @@ export default function HomePage() {
               </>
             )}
           </div>
+        </div>
+      )}
+      {/* ===== 수강료 이미지 확대 보기 ===== */}
+      {zoomImage && (
+        <div
+          className="overlay"
+          style={{ alignItems: 'center', padding: 16 }}
+          onClick={() => setZoomImage(false)}
+        >
+          <img
+            src="/price.png"
+            alt="수강료 안내 확대"
+            style={{ maxWidth: '100%', maxHeight: '92vh', borderRadius: 12, objectFit: 'contain' }}
+          />
         </div>
       )}
     </main>
