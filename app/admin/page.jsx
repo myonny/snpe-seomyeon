@@ -176,19 +176,44 @@ function SchedulesTab() {
     load();
   }
 
-  const render = (name, key) => (
-    <div className="teacher" style={{ marginBottom: 16 }}>
-      <div className="teacher-name">{name}</div>
-      {items.filter((i) => i.instructor === key).length === 0 && <div className="empty">등록된 시간 없음</div>}
-      {items.filter((i) => i.instructor === key).map((i) => (
-        <div key={i.id} className="row-item">
-          <span style={{ flex: 1 }}>{i.time_text}</span>
-          <button className="tag-edit" onClick={() => edit(i)}>수정</button>
-          <button className="tag-del" onClick={() => del(i.id)}>삭제</button>
-        </div>
-      ))}
-    </div>
-  );
+  // 순서 바꾸기: 같은 강사 안에서 위(-1)/아래(+1)로 이동
+  async function move(key, index, dir) {
+    const list = items.filter((i) => i.instructor === key);
+    const target = index + dir;
+    if (target < 0 || target >= list.length) return;
+    [list[index], list[target]] = [list[target], list[index]];
+    await Promise.all(
+      list.map((it, i) =>
+        fetch('/api/admin/schedules', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: it.id, sort_order: i + 1 }),
+        })
+      )
+    );
+    load();
+  }
+
+  const render = (name, key) => {
+    const list = items.filter((i) => i.instructor === key);
+    return (
+      <div className="teacher" style={{ marginBottom: 16 }}>
+        <div className="teacher-name">{name}</div>
+        {list.length === 0 && <div className="empty">등록된 시간 없음</div>}
+        {list.map((i, index) => (
+          <div key={i.id} className="row-item">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <button className="tag-move" onClick={() => move(key, index, -1)} disabled={index === 0}>↑</button>
+              <button className="tag-move" onClick={() => move(key, index, 1)} disabled={index === list.length - 1}>↓</button>
+            </div>
+            <span style={{ flex: 1 }}>{i.time_text}</span>
+            <button className="tag-edit" onClick={() => edit(i)}>수정</button>
+            <button className="tag-del" onClick={() => del(i.id)}>삭제</button>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="card">
