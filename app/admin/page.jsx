@@ -76,12 +76,14 @@ export default function AdminPage() {
 
       <div className="admin-tabs">
         <button className={`admin-tab ${tab === 'consultations' ? 'active' : ''}`} onClick={() => setTab('consultations')}>상담 신청</button>
+        <button className={`admin-tab ${tab === 'waitlist' ? 'active' : ''}`} onClick={() => setTab('waitlist')}>대기 신청</button>
         <button className={`admin-tab ${tab === 'schedules' ? 'active' : ''}`} onClick={() => setTab('schedules')}>수업 시간</button>
         <button className={`admin-tab ${tab === 'dates' ? 'active' : ''}`} onClick={() => setTab('dates')}>상담 날짜</button>
         <button className={`admin-tab ${tab === 'bank' ? 'active' : ''}`} onClick={() => setTab('bank')}>입금 계좌</button>
       </div>
 
       {tab === 'consultations' && <ConsultationsTab />}
+      {tab === 'waitlist' && <WaitlistTab />}
       {tab === 'schedules' && <SchedulesTab />}
       {tab === 'dates' && <DatesTab />}
       {tab === 'bank' && <BankTab />}
@@ -121,6 +123,48 @@ function ConsultationsTab() {
               <div style={{ fontWeight: 700 }}>{c.name} · {c.phone}</div>
               <div className="small-muted">희망일: {c.date_label || '-'}</div>
               {c.discomfort && <div style={{ fontSize: 14, marginTop: 2 }}>“{c.discomfort}”</div>}
+              <div className="small-muted">신청: {formatDate(c.created_at)}</div>
+            </div>
+            <button className="tag-del" onClick={() => del(c.id)}>삭제</button>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+/* ================= 대기 신청 목록 ================= */
+function WaitlistTab() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  async function load() {
+    setLoading(true);
+    const res = await fetch('/api/admin/waitlist');
+    const json = await res.json();
+    setItems(json.items || []);
+    setLoading(false);
+  }
+  useEffect(() => { load(); }, []);
+
+  async function del(id) {
+    if (!confirm('이 대기 신청을 삭제할까요?')) return;
+    await fetch(`/api/admin/waitlist?id=${id}`, { method: 'DELETE' });
+    load();
+  }
+
+  return (
+    <div className="card">
+      <div className="section-title">⏳ 대기 신청 목록 ({items.length})</div>
+      {loading ? <p className="hint">불러오는 중…</p> : items.length === 0 ? (
+        <p className="hint">아직 대기 신청이 없어요.</p>
+      ) : (
+        items.map((c) => (
+          <div key={c.id} className="row-item">
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 700 }}>{c.name} · {c.phone}</div>
+              <div className="small-muted">원하는 시간대: {c.desired_time || '-'}</div>
+              {c.note && <div style={{ fontSize: 14, marginTop: 2 }}>“{c.note}”</div>}
               <div className="small-muted">신청: {formatDate(c.created_at)}</div>
             </div>
             <button className="tag-del" onClick={() => del(c.id)}>삭제</button>

@@ -14,6 +14,13 @@ export default function HomePage() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState('');
 
+  // 대기 신청
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
+  const [wlForm, setWlForm] = useState({ name: '', phone: '', desired_time: '', note: '' });
+  const [wlSubmitting, setWlSubmitting] = useState(false);
+  const [wlDone, setWlDone] = useState(false);
+  const [wlError, setWlError] = useState('');
+
   useEffect(() => {
     fetch('/api/public')
       .then((r) => r.json())
@@ -67,6 +74,40 @@ export default function HomePage() {
     }
   }
 
+  function openWaitlist() {
+    setWlForm({ name: '', phone: '', desired_time: '', note: '' });
+    setWlDone(false);
+    setWlError('');
+    setWaitlistOpen(true);
+  }
+
+  async function submitWaitlist(e) {
+    e.preventDefault();
+    setWlError('');
+    if (!wlForm.name.trim() || !wlForm.phone.trim()) {
+      setWlError('이름과 연락처를 입력해 주세요.');
+      return;
+    }
+    setWlSubmitting(true);
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(wlForm),
+      });
+      const json = await res.json();
+      if (json.ok) {
+        setWlDone(true);
+      } else {
+        setWlError(json.error || '신청에 실패했어요. 다시 시도해 주세요.');
+      }
+    } catch {
+      setWlError('신청에 실패했어요. 다시 시도해 주세요.');
+    } finally {
+      setWlSubmitting(false);
+    }
+  }
+
   const bank = data?.bank || {};
 
   return (
@@ -88,7 +129,7 @@ export default function HomePage() {
         <>
           {/* 3) 지금 예약 가능한 수업 시간 */}
           <section className="card">
-            <div className="section-title">🕒 지금 예약 가능한 수업 시간</div>
+            <div className="section-title">🕒 지금 진행 가능한 수업 시간</div>
             <p className="hint">
               수업 시간은 지금 정하지 않아요! 남은 시간대만 확인하시고, 방문 상담 후 확정돼요 ✨
             </p>
@@ -114,6 +155,11 @@ export default function HomePage() {
                 ))
               )}
             </div>
+
+            <p className="hint" style={{ marginTop: 16, marginBottom: 10 }}>
+              이 외의 시간을 원하시면 <b>대기 신청</b>이 가능해요. 자리가 나면 순서대로 연락드려요 🙂
+            </p>
+            <button className="btn ghost" onClick={openWaitlist}>대기 신청하기</button>
           </section>
 
           {/* 4) 수강료 */}
@@ -256,6 +302,77 @@ export default function HomePage() {
           </div>
         </div>
       )}
+      {/* ===== 대기 신청 모달 ===== */}
+      {waitlistOpen && (
+        <div className="overlay" onClick={() => setWaitlistOpen(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close" onClick={() => setWaitlistOpen(false)}>×</button>
+
+            {!wlDone ? (
+              <>
+                <h3>대기 신청</h3>
+                <p className="hint" style={{ marginTop: 6 }}>
+                  원하시는 시간대를 남겨주시면, 자리가 나는 대로 순서대로 연락드려요 🙂
+                </p>
+
+                <form onSubmit={submitWaitlist} style={{ marginTop: 10 }}>
+                  <div className="field">
+                    <label>이름</label>
+                    <input
+                      value={wlForm.name}
+                      onChange={(e) => setWlForm({ ...wlForm, name: e.target.value })}
+                      placeholder="성함을 입력해 주세요"
+                    />
+                  </div>
+                  <div className="field">
+                    <label>연락처</label>
+                    <input
+                      value={wlForm.phone}
+                      onChange={(e) => setWlForm({ ...wlForm, phone: e.target.value })}
+                      placeholder="010-0000-0000"
+                      inputMode="tel"
+                    />
+                  </div>
+                  <div className="field">
+                    <label>원하는 시간대</label>
+                    <input
+                      value={wlForm.desired_time}
+                      onChange={(e) => setWlForm({ ...wlForm, desired_time: e.target.value })}
+                      placeholder="예) 평일 오전, 주말 오후 등"
+                    />
+                  </div>
+                  <div className="field">
+                    <label>어디가 불편하신가요? (선택)</label>
+                    <textarea
+                      value={wlForm.note}
+                      onChange={(e) => setWlForm({ ...wlForm, note: e.target.value })}
+                      placeholder="예) 목·어깨 결림, 허리 통증 등"
+                    />
+                  </div>
+
+                  {wlError && <div className="msg-error">{wlError}</div>}
+
+                  <button className="btn" type="submit" disabled={wlSubmitting} style={{ marginTop: 6 }}>
+                    {wlSubmitting ? '신청 중…' : '대기 신청하기'}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <div className="done-check">✓</div>
+                <h3 style={{ textAlign: 'center' }}>대기 신청이 접수되었어요!</h3>
+                <p className="hint" style={{ textAlign: 'center', marginTop: 6 }}>
+                  자리가 나는 대로 순서대로 연락드릴게요. 감사합니다 🙂
+                </p>
+                <button className="btn" onClick={() => setWaitlistOpen(false)} style={{ marginTop: 16 }}>
+                  확인
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* ===== 수강료 이미지 확대 보기 ===== */}
       {zoomImage && (
         <div
