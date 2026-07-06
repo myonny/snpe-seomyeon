@@ -16,7 +16,7 @@ export default function HomePage() {
 
   // 대기 신청
   const [waitlistOpen, setWaitlistOpen] = useState(false);
-  const [wlForm, setWlForm] = useState({ name: '', phone: '', desired_time: '', note: '' });
+  const [wlForm, setWlForm] = useState({ name: '', phone: '', teacher: '', desired_time: '', note: '' });
   const [wlSubmitting, setWlSubmitting] = useState(false);
   const [wlDone, setWlDone] = useState(false);
   const [wlError, setWlError] = useState('');
@@ -75,7 +75,7 @@ export default function HomePage() {
   }
 
   function openWaitlist() {
-    setWlForm({ name: '', phone: '', desired_time: '', note: '' });
+    setWlForm({ name: '', phone: '', teacher: '', desired_time: '', note: '' });
     setWlDone(false);
     setWlError('');
     setWaitlistOpen(true);
@@ -332,6 +332,21 @@ export default function HomePage() {
                       placeholder="010-0000-0000"
                       inputMode="tel"
                     />
+                  </div>
+                  <div className="field">
+                    <label>강사 선택</label>
+                    <div className="choice-row">
+                      {['홍혜경 원장님', '묘니쌤', '둘 다 상관없음'].map((t) => (
+                        <button
+                          type="button"
+                          key={t}
+                          className={`choice ${wlForm.teacher === t ? 'active' : ''}`}
+                          onClick={() => setWlForm({ ...wlForm, teacher: t })}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                   <div className="field">
                     <label>원하는 시간대</label>

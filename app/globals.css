@@ -197,6 +197,16 @@ html, body {
 }
 .field textarea { min-height: 90px; resize: vertical; }
 
+/* 선택 버튼(강사 선택 등) */
+.choice-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.choice {
+  flex: 1; min-width: 90px; text-align: center;
+  border: 1.5px solid var(--line); background: #FFFDFC; color: var(--plum-soft);
+  border-radius: var(--radius-sm); padding: 11px 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: all .12s ease;
+}
+.choice.active { border-color: var(--coral); background: #FCE9E3; color: var(--coral); }
+
 /* ===== 입금 안내 박스 ===== */
 .bank-box {
   background: #FDF4F1;

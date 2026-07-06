@@ -13,6 +13,7 @@ export async function POST(req) {
 
   const name = (body.name || '').trim();
   const phone = (body.phone || '').trim();
+  const teacher = (body.teacher || '').trim();
   const desired_time = (body.desired_time || '').trim();
   const note = (body.note || '').trim();
 
@@ -20,7 +21,7 @@ export async function POST(req) {
     return NextResponse.json({ ok: false, error: '이름과 연락처를 입력해 주세요.' }, { status: 400 });
   }
 
-  const { error } = await supabase.from('waitlist').insert({ name, phone, desired_time, note });
+  const { error } = await supabase.from('waitlist').insert({ name, phone, teacher, desired_time, note });
 
   if (error) {
     return NextResponse.json({ ok: false, error: '저장에 실패했어요. 잠시 후 다시 시도해 주세요.' }, { status: 500 });

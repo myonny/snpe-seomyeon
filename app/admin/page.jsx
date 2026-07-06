@@ -163,6 +163,7 @@ function WaitlistTab() {
           <div key={c.id} className="row-item">
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 700 }}>{c.name} · {c.phone}</div>
+              <div className="small-muted">강사: {c.teacher || '-'}</div>
               <div className="small-muted">원하는 시간대: {c.desired_time || '-'}</div>
               {c.note && <div style={{ fontSize: 14, marginTop: 2 }}>“{c.note}”</div>}
               <div className="small-muted">신청: {formatDate(c.created_at)}</div>
