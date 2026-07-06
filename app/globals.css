@@ -1,0 +1,272 @@
+/* ===== 디자인 토큰 ===== */
+:root {
+  --cream: #FBF6F3;      /* 배경: 살짝 핑크빛 크림 */
+  --coral: #E6836F;      /* 포인트: 코랄로즈 */
+  --coral-soft: #F2B5A6; /* 연한 코랄 */
+  --plum: #3B2A31;       /* 글씨: 진한 플럼 */
+  --plum-soft: #7A6068;  /* 연한 플럼(보조 텍스트) */
+  --white: #FFFFFF;
+  --line: #EFE2DC;
+  --radius: 20px;
+  --radius-sm: 14px;
+  --shadow: 0 8px 24px rgba(59, 42, 49, 0.08);
+  --shadow-soft: 0 4px 14px rgba(59, 42, 49, 0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--cream);
+  color: var(--plum);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 화면 가운데, 모바일 폭 기준 */
+.wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 24px 18px 60px;
+}
+
+/* ===== 카드 공통 ===== */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 22px 20px;
+  margin-bottom: 18px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== 상단 헤더 ===== */
+.badge {
+  display: inline-block;
+  background: var(--coral);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+}
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 14px 0 16px;
+  letter-spacing: -0.5px;
+}
+.rainbow-line {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,#ff8a8a,#ffcf7a,#fff07a,#8ee7a1,#7ac6ff,#b79cff,#ff9ede);
+}
+
+/* ===== 공지 배너 ===== */
+.notice {
+  background: linear-gradient(135deg, #FDEDE7, #FBE3EC);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  font-weight: 600;
+  color: var(--plum);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 18px;
+}
+
+/* ===== 안내문(작은 회색 글씨) ===== */
+.hint {
+  font-size: 14px;
+  color: var(--plum-soft);
+  margin-bottom: 14px;
+}
+
+/* ===== 강사 시간표 ===== */
+.teacher {
+  background: #FDF4F1;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.teacher-name {
+  font-weight: 700;
+  color: var(--coral);
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+.teacher .slot {
+  font-size: 14.5px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.teacher .slot:last-child { border-bottom: none; }
+.teacher .empty { font-size: 14px; color: var(--plum-soft); }
+
+/* ===== 버튼 ===== */
+.btn {
+  display: inline-block;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background: var(--coral);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  transition: transform .05s ease, opacity .2s ease;
+  font-family: inherit;
+}
+.btn:hover { opacity: .92; }
+.btn:active { transform: scale(0.99); }
+.btn.ghost {
+  background: var(--white);
+  color: var(--coral);
+  border: 1.5px solid var(--coral-soft);
+}
+.btn.small { width: auto; font-size: 14px; padding: 8px 14px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ===== 수강료 이미지 ===== */
+.price-img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  margin-top: 14px;
+  display: block;
+}
+
+/* ===== 날짜 카드 ===== */
+.date-grid { display: flex; flex-direction: column; gap: 10px; }
+.date-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  border: 1.5px solid var(--line);
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color .15s ease, background .15s ease;
+}
+.date-card:hover { border-color: var(--coral-soft); background: #FFFAF8; }
+.date-card .d-date { font-weight: 700; font-size: 16px; }
+.date-card .d-sub { font-size: 13.5px; color: var(--plum-soft); }
+.date-card.closed {
+  cursor: not-allowed;
+  background: #F3EEEC;
+  color: #B9AEB2;
+  border-color: #EAE1DE;
+}
+.date-card.closed:hover { border-color: #EAE1DE; background: #F3EEEC; }
+.pill-closed {
+  background: #C9BEC2; color: #fff; font-size: 12px;
+  font-weight: 700; padding: 4px 10px; border-radius: 999px;
+}
+.pill-open {
+  background: #FCE9E3; color: var(--coral); font-size: 12px;
+  font-weight: 700; padding: 4px 10px; border-radius: 999px;
+}
+
+/* ===== 폼 ===== */
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.field input, .field textarea {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--plum);
+  background: #FFFDFC;
+}
+.field input:focus, .field textarea:focus {
+  outline: none; border-color: var(--coral);
+}
+.field textarea { min-height: 90px; resize: vertical; }
+
+/* ===== 입금 안내 박스 ===== */
+.bank-box {
+  background: #FDF4F1;
+  border: 1px dashed var(--coral-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-top: 6px;
+}
+.bank-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 15px; }
+.bank-row .k { color: var(--plum-soft); }
+.bank-row .v { font-weight: 700; }
+
+/* ===== 모달(팝업) ===== */
+.overlay {
+  position: fixed; inset: 0; background: rgba(59,42,49,0.45);
+  display: flex; align-items: flex-end; justify-content: center;
+  z-index: 50; padding: 0;
+}
+.modal {
+  background: var(--white);
+  width: 100%;
+  max-width: 560px;
+  border-radius: 24px 24px 0 0;
+  padding: 24px 20px 30px;
+  box-shadow: var(--shadow);
+  animation: slideUp .22s ease;
+}
+@keyframes slideUp { from { transform: translateY(40px); opacity: .6 } to { transform: translateY(0); opacity: 1 } }
+.modal h3 { font-size: 19px; margin-bottom: 4px; }
+.modal .close { float: right; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--plum-soft); }
+
+/* ===== 완료 화면 체크 ===== */
+.done-check {
+  width: 64px; height: 64px; margin: 6px auto 12px;
+  background: #E8F7EC; color: #35b06a; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 34px;
+}
+
+/* ===== 하단 정보 ===== */
+.footer {
+  text-align: center; color: var(--plum-soft); font-size: 13px; margin-top: 24px; line-height: 1.9;
+}
+
+/* ===== 관리자 페이지 ===== */
+.admin-tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.admin-tab {
+  border: none; cursor: pointer; font-family: inherit;
+  background: var(--white); color: var(--plum-soft);
+  padding: 9px 14px; border-radius: 999px; font-weight: 600; font-size: 14px;
+  box-shadow: var(--shadow-soft);
+}
+.admin-tab.active { background: var(--coral); color: #fff; }
+.row-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.row-item:last-child { border-bottom: none; }
+.tag-del {
+  background: #fbeaea; color: #d15b5b; border: none; cursor: pointer;
+  padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; font-family: inherit;
+}
+.tag-edit {
+  background: #eef1fb; color: #5b6bd1; border: none; cursor: pointer;
+  padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; font-family: inherit;
+}
+.inline-form { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.inline-form input, .inline-form select {
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px;
+  font-size: 14px; font-family: inherit; flex: 1; min-width: 120px; background:#FFFDFC; color:var(--plum);
+}
+.msg-error { color: #d15b5b; font-size: 14px; margin-top: 8px; }
+.msg-ok { color: #35b06a; font-size: 14px; margin-top: 8px; }
+.small-muted { font-size: 12.5px; color: var(--plum-soft); }
