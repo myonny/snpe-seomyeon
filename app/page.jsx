@@ -137,9 +137,6 @@ export default function HomePage() {
                 }}
               />
             )}
-            <p className="hint" style={{ marginTop: 12, marginBottom: 0 }}>
-              수업 1회 50분 · 강사: 홍혜경 원장님, 묘니쌤 · 부산 서면
-            </p>
           </section>
 
           {/* 5) 상담 예약 */}
