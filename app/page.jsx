@@ -74,7 +74,6 @@ export default function HomePage() {
       <div style={{ marginBottom: 22 }}>
         <span className="badge">SNPE 서면점</span>
         <h1 className="title">1:1 개인레슨 상담예약창</h1>
-        <div className="rainbow-line" />
       </div>
 
       {/* 2) 공지 배너 */}
