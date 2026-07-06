@@ -22,5 +22,14 @@ export async function GET() {
     },
     dates: datesRes.data || [],
     bank: bankRes.data || { bank: '', account_number: '', holder: '' },
+    _debug: {
+      hasUrl: !!process.env.SUPABASE_URL,
+      hasKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      keyPrefix: (process.env.SUPABASE_SERVICE_ROLE_KEY || '').slice(0, 11),
+      urlPrefix: (process.env.SUPABASE_URL || '').slice(0, 16),
+      schedulesError: schedulesRes.error?.message || null,
+      datesError: datesRes.error?.message || null,
+      bankError: bankRes.error?.message || null,
+    },
   });
 }
