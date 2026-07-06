@@ -118,7 +118,7 @@ export default function HomePage() {
 
           {/* 4) 수강료 */}
           <section className="card">
-            <div className="section-title">🌸 수강료</div>
+            <div className="section-title">📋 수강료</div>
             <button className="btn ghost" onClick={() => setShowPrice((v) => !v)}>
               {showPrice ? '수강료 접기' : '수강료 보기'}
             </button>
