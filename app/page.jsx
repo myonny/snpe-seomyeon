@@ -105,7 +105,7 @@ export default function HomePage() {
             </div>
 
             <div className="teacher">
-              <div className="teacher-name">묘니쌤 (부원장)</div>
+              <div className="teacher-name">묘니쌤</div>
               {data.schedules.묘니.length === 0 ? (
                 <div className="empty">현재 안내된 시간이 없어요.</div>
               ) : (
