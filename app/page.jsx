@@ -64,7 +64,7 @@ export default function HomePage() {
       {/* 1) 상단 헤더 */}
       <div style={{ marginBottom: 22 }}>
         <span className="badge">SNPE 서면점</span>
-        <h1 className="title">1:1 개인레슨 상담예약창</h1>
+        <h1 className="title">1:1 프라이빗 레슨 수강료 및 무료 체형 분석 상담 안내</h1>
       </div>
 
       {/* 2) 공지 배너 */}

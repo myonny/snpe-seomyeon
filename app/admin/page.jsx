@@ -6,7 +6,7 @@ export default function AdminPage() {
   const [authed, setAuthed] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [tab, setTab] = useState('consultations');
+  const [tab, setTab] = useState('waitlist');
 
   // 로그인되어 있는지 확인 (관리자 API를 한 번 호출해봄)
   useEffect(() => {
@@ -75,18 +75,14 @@ export default function AdminPage() {
       <div className="rainbow-line" style={{ marginBottom: 18 }} />
 
       <div className="admin-tabs">
-        <button className={`admin-tab ${tab === 'consultations' ? 'active' : ''}`} onClick={() => setTab('consultations')}>상담 신청</button>
         <button className={`admin-tab ${tab === 'waitlist' ? 'active' : ''}`} onClick={() => setTab('waitlist')}>대기 신청</button>
         <button className={`admin-tab ${tab === 'schedules' ? 'active' : ''}`} onClick={() => setTab('schedules')}>수업 시간</button>
         <button className={`admin-tab ${tab === 'dates' ? 'active' : ''}`} onClick={() => setTab('dates')}>상담 날짜</button>
-        <button className={`admin-tab ${tab === 'bank' ? 'active' : ''}`} onClick={() => setTab('bank')}>입금 계좌</button>
       </div>
 
-      {tab === 'consultations' && <ConsultationsTab />}
       {tab === 'waitlist' && <WaitlistTab />}
       {tab === 'schedules' && <SchedulesTab />}
       {tab === 'dates' && <DatesTab />}
-      {tab === 'bank' && <BankTab />}
     </main>
   );
 }
