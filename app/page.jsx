@@ -77,42 +77,7 @@ export default function HomePage() {
 
       {!loading && data && (
         <>
-          {/* 3) 지금 예약 가능한 수업 시간 */}
-          <section className="card">
-            <div className="section-title">🕒 지금 진행 가능한 수업 시간</div>
-            <p className="hint">
-              수업 시간은 지금 정하지 않아요! 남은 시간대만 확인하시고, 방문 상담 후 확정돼요 ✨
-            </p>
-
-            <div className="teacher">
-              <div className="teacher-name">홍혜경 원장님</div>
-              {data.schedules.홍혜경.length === 0 ? (
-                <div className="empty">현재 안내된 시간이 없어요.</div>
-              ) : (
-                data.schedules.홍혜경.map((s) => (
-                  <div className="slot" key={s.id}>{s.time_text}</div>
-                ))
-              )}
-            </div>
-
-            <div className="teacher">
-              <div className="teacher-name">묘니쌤</div>
-              {data.schedules.묘니.length === 0 ? (
-                <div className="empty">현재 안내된 시간이 없어요.</div>
-              ) : (
-                data.schedules.묘니.map((s) => (
-                  <div className="slot" key={s.id}>{s.time_text}</div>
-                ))
-              )}
-            </div>
-
-            <p className="hint" style={{ marginTop: 16, marginBottom: 10 }}>
-              이 외의 시간을 원하시면 <b>대기 신청</b>이 가능해요. 자리가 나면 순서대로 연락드려요 🙂
-            </p>
-            <button className="btn ghost" onClick={openWaitlist}>대기 신청하기</button>
-          </section>
-
-          {/* 4) 수강료 */}
+          {/* 1) 수강료 */}
           <section className="card">
             <div className="section-title">📋 수강료</div>
             <button className="btn ghost" onClick={() => setShowPrice((v) => !v)}>
@@ -137,7 +102,7 @@ export default function HomePage() {
             )}
           </section>
 
-          {/* 5) 상담 가능한 시간 (보여주기만, 예약은 대화로) */}
+          {/* 2) 상담 가능한 시간 (보여주기만, 예약은 대화로) */}
           <section className="card">
             <div className="section-title">📅 상담 가능한 시간</div>
             <p className="hint">
@@ -170,6 +135,41 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+          </section>
+
+          {/* 3) 지금 진행 가능한 수업 시간 */}
+          <section className="card">
+            <div className="section-title">🕒 지금 진행 가능한 수업 시간</div>
+            <p className="hint">
+              수업 시간은 지금 정하지 않아요! 남은 시간대만 확인하시고, 방문 상담 후 확정돼요 ✨
+            </p>
+
+            <div className="teacher">
+              <div className="teacher-name">홍혜경 원장님</div>
+              {data.schedules.홍혜경.length === 0 ? (
+                <div className="empty">현재 안내된 시간이 없어요.</div>
+              ) : (
+                data.schedules.홍혜경.map((s) => (
+                  <div className="slot" key={s.id}>{s.time_text}</div>
+                ))
+              )}
+            </div>
+
+            <div className="teacher">
+              <div className="teacher-name">묘니쌤</div>
+              {data.schedules.묘니.length === 0 ? (
+                <div className="empty">현재 안내된 시간이 없어요.</div>
+              ) : (
+                data.schedules.묘니.map((s) => (
+                  <div className="slot" key={s.id}>{s.time_text}</div>
+                ))
+              )}
+            </div>
+
+            <p className="hint" style={{ marginTop: 16, marginBottom: 10 }}>
+              이 외의 시간을 원하시면 <b>대기 신청</b>이 가능해요. 자리가 나면 순서대로 연락드려요 🙂
+            </p>
+            <button className="btn ghost" onClick={openWaitlist}>대기 신청하기</button>
           </section>
 
           {/* 하단 정보 */}
