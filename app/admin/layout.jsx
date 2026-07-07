@@ -3,6 +3,7 @@
 
 export const metadata = {
   title: 'SNPE 관리자',
+  manifest: '/admin-manifest.json',
   appleWebApp: {
     capable: true,
     title: 'SNPE 관리자',
