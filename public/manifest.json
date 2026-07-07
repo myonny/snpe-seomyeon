@@ -1,0 +1,12 @@
+{
+  "name": "SNPE 서면점",
+  "short_name": "SNPE 서면점",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF6F3",
+  "theme_color": "#E6836F",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
